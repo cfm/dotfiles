@@ -1,3 +1,6 @@
 [user]
 	email = cory@freedom.press
 	name = Cory Francis Myers
+	signingkey = 0x0F786C3435E961244B69B9EC07AD35D378D10BA0
+[commit]
+	gpgsign = true
