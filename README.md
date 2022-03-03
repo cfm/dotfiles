@@ -19,3 +19,11 @@ $ gpg --edit-key $KEYID  # trust ultimately
 
 * In Qubes, I suppose I could seed the keyring and `trustdb` in the
   template-level `/etc/skel`.
+
+
+## To bootstrap a disposable VM for development
+
+```sh-session
+$ wget https://raw.githubusercontent.com/cfm/dotfiles/main/Makefile
+$ make dev-dispvm
+```
