@@ -7,6 +7,8 @@ dev-dispvm: extrepo-vscodium
 		codium \
 		git \
 		python3-venv \
+		python3-dev \
+		python3-tk \
 		vim
 
 extrepo: backports
