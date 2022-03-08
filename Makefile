@@ -9,7 +9,8 @@ dev-dispvm: extrepo-vscodium
 		python3-venv \
 		python3-dev \
 		python3-tk \
-		vim
+		vim \
+		xvfb
 
 extrepo: backports
 	sudo apt install --yes extrepo
