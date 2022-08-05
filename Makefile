@@ -18,12 +18,28 @@ terraform-apt:  # adapted from https://www.terraform.io/downloads
 sd-dev: extrepo-vscodium terraform-apt
 	sudo apt install --yes \
 		codium \
-		git \
+		git git-lfs \
 		jq \
 		python3-venv \
 		python3-dev \
 		python3-tk \
+		sqlite3 \
 		terraform \
 		vim \
 		vinagre \
 		xvfb
+	# https://docs.securedrop.org/en/stable/development/setup_development.html#id1
+	sudo apt install --yes \
+		build-essential \
+		libssl-dev \
+		libffi-dev \
+		python3-dev \
+		dpkg-dev \
+		git \
+		linux-headers-$(uname -r)
+	sudo apt install --yes \
+		python3-pip \
+		virtualenvwrapper
+
+sd-staging:
+	sudo apt install qubes-core-admin-client
