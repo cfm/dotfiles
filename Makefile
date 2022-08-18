@@ -15,7 +15,7 @@ terraform-apt:  # adapted from https://www.terraform.io/downloads
 	echo "deb [arch=amd64] https://apt.releases.hashicorp.com `lsb_release -cs` main" | sudo tee /etc/apt/sources.list.d/terraform.list
 	sudo apt update
 
-sd-dev: extrepo-vscodium terraform-apt
+sd-dev: extrepo-vscodium prereqs terraform-apt
 	sudo apt install --yes \
 		codium \
 		git git-lfs \
@@ -40,6 +40,10 @@ sd-dev: extrepo-vscodium terraform-apt
 	sudo apt install --yes \
 		python3-pip \
 		virtualenvwrapper
+
+prereqs:
+	sudo apt update
+	sudo apt install scdaemon
 
 sd-staging:
 	sudo apt install qubes-core-admin-client
