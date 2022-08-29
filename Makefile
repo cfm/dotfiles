@@ -1,30 +1,26 @@
-backports:
-	echo "deb http://deb.debian.org/debian buster-backports main" | sudo tee /etc/apt/sources.list.d/backports.list
-	sudo apt update
+# --- WHOLES ---
 
-extrepo: backports
-	sudo apt install --yes extrepo
-	sudo apt update
+dvm: dev vscodium
+	sudo apt-get --yes autoremove
 
-extrepo-vscodium: extrepo
-	sudo extrepo enable vscodium
-	sudo apt update
+sd-dev: dev terraform vscodium
+	sudo apt-get --yes autoremove
 
-terraform-apt:  # adapted from https://www.terraform.io/downloads
-	curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
-	echo "deb [arch=amd64] https://apt.releases.hashicorp.com `lsb_release -cs` main" | sudo tee /etc/apt/sources.list.d/terraform.list
-	sudo apt update
+sd-staging: prereqs
+	sudo apt install --yes qubes-core-admin-client
+	sudo apt-get --yes autoremove
 
-sd-dev: extrepo-vscodium prereqs terraform-apt
+
+# --- PIECES ---
+
+dev: prereqs
 	sudo apt install --yes \
-		codium \
 		git git-lfs \
 		jq \
 		python3-venv \
 		python3-dev \
 		python3-tk \
 		sqlite3 \
-		terraform \
 		vim \
 		vinagre \
 		xvfb
@@ -41,9 +37,25 @@ sd-dev: extrepo-vscodium prereqs terraform-apt
 		python3-pip \
 		virtualenvwrapper
 
+extrepo:
+	sudo apt install --yes extrepo
+	sudo apt update
+
+terraform: terraform-repo
+	sudo apt install --yes terraform
+
+terraform-repo:  # adapted from https://www.terraform.io/downloads
+	curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+	echo "deb [arch=amd64] https://apt.releases.hashicorp.com `lsb_release -cs` main" | sudo tee /etc/apt/sources.list.d/terraform.list
+	sudo apt update
+
 prereqs:
 	sudo apt update
 	sudo apt install scdaemon
 
-sd-staging:
-	sudo apt install qubes-core-admin-client
+vscodium: vscodium-repo
+	sudo apt install --yes codium
+
+vscodium-repo: extrepo
+	sudo extrepo enable vscodium
+	sudo apt update

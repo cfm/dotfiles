@@ -25,5 +25,5 @@ $ gpg --edit-key $KEYID  # trust ultimately
 
 ```sh-session
 $ wget https://raw.githubusercontent.com/cfm/dotfiles/main/Makefile
-$ make dev-dispvm
+$ make dvm
 ```
