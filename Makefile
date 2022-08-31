@@ -1,5 +1,8 @@
 # --- WHOLES ---
 
+dotfiles:
+	git clone git@github.com:cfm/dotfiles.private.git
+
 dvm: dev vscodium
 	sudo apt-get --yes autoremove
 

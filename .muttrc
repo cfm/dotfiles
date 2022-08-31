@@ -1,0 +1,79 @@
+#
+# Starter muttrc file, with just a few suggestions and settings.
+#
+# This file purposely doesn't include hooks, keybinding, macros, colors, etc.
+# Read the manual, explore, and have fun!
+#
+
+###############
+# Identity
+#
+set reverse_name
+
+###############
+# Example: local mailboxes
+#
+# Some people use mbsync or getmail to retrieve their mail locally.
+#
+set folder = ~/Mail           # This has the shortcut '+' or '='
+set spoolfile = "+INBOX"      # This has the shortcut '!'
+set record = "+Sent"
+set trash = "+Trash"
+set postponed = "+Drafts"
+
+mailboxes ! +mutt +family +work
+
+###############
+# Pager settings
+#
+ignore *
+unignore From Message-ID Date To Cc Bcc Subject
+
+set pager_stop
+unset markers
+
+# Prefer plain text to html.
+# However, for brain dead clients that bundle attachments inside a
+# multipart/alternative, prefer that alternative.
+alternative_order multipart/mixed multipart/related text/plain
+
+# Consult mime.types for determining types of these attachments
+mime_lookup application/octet-stream
+
+# This requires a ~/.mailcap entry with the copiousoutput flag, such as:
+# text/html; lynx -dump -width ${COLUMNS:-80} %s; nametemplate=%s.html; copiousoutput
+auto_view text/html
+
+###############
+# Index settings
+#
+set quit = ask-yes
+set sort = threads
+
+# Remember to `mkdir -p ~/.mutt/hcache` first:
+set header_cache= "~/.mutt/hcache"
+
+###############
+# Message composition settings
+#
+set edit_headers
+
+# set editor = "emacsclient -a emacs -t"
+set editor = "vim"
+
+set mime_type_query_command = "xdg-mime query filetype"
+
+# msmtp is a solid SMTP client.
+# mutt also has built-in SMTP, or you can use an MTA like exim4 or postfix.
+set sendmail = "/usr/bin/msmtp"
+
+###############
+# GnuPG
+#
+unset crypt_use_gpgme
+source /usr/share/doc/mutt/gpg.rc
+set crypt_opportunistic_encrypt
+set postpone_encrypt
+
+
+source ~/dotfiles.private/.muttrc
