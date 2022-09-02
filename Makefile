@@ -17,6 +17,7 @@ dev: prereqs
 	sudo apt install --yes \
 		git git-lfs \
 		jq \
+		mr perl-doc \
 		python3-venv \
 		python3-dev \
 		python3-tk \
