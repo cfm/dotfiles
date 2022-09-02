@@ -4,3 +4,6 @@ checkout = git clone 'git@github.com:freedomofpress/securedrop.git' 'securedrop'
 
 [securedrop-client]
 checkout = git clone 'git@github.com:freedomofpress/securedrop-client' 'securedrop-client'
+
+[securedrop-debian-packaging]
+checkout = git clone 'git@github.com:freedomofpress/securedrop-debian-packaging.git' 'securedrop-debian-packaging'
