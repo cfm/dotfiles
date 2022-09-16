@@ -9,7 +9,16 @@ $ git checkout -- .gitignore
 $ git reset --hard
 ```
 
+For private dotfiles too:
+
+```sh-session
+$ make dotfiles
+```
+
+
 ## To bootstrap GPG keyring
+
+`make key`, or:
 
 ```sh-session
 $ KEYID=0x0F786C3435E961244B69B9EC07AD35D378D10BA0

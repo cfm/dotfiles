@@ -1,6 +1,7 @@
 # --- WHOLES ---
 
-dotfiles:
+dotfiles: key
+	git remote set-url origin git@github.com:cfm/dotfiles.git
 	git clone git@github.com:cfm/dotfiles.private.git
 
 dvm: dev vscodium
@@ -45,6 +46,9 @@ dev: prereqs
 extrepo:
 	sudo apt install --yes extrepo
 	sudo apt update
+
+key:
+	gpg --recv-key 0x0F786C3435E961244B69B9EC07AD35D378D10BA0
 
 terraform: terraform-repo
 	sudo apt install --yes terraform
