@@ -58,6 +58,7 @@ set header_cache= "~/.mutt/hcache"
 ###############
 # Message composition settings
 #
+set autoedit
 set edit_headers
 
 # set editor = "emacsclient -a emacs -t"
