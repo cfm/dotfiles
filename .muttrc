@@ -8,7 +8,6 @@
 ###############
 # Identity
 #
-source ~/dotfiles.private/.muttrc
 
 set reverse_name
 
@@ -92,3 +91,7 @@ macro index 0 "<shell-escape>offlineimap && notmuch new<enter>"
 
 # Adapted from <https://unix.stackexchange.com/a/105770>
 macro index,pager a ":set confirmappend=no delete=yes auto_tag=yes\n<save-message>=Archive\n<sync-mailbox>:set confirmappend=yes delete=ask-yes\n" "archive message(s)"
+
+###############
+# Private overrides
+source ~/dotfiles.private/.muttrc
