@@ -38,7 +38,6 @@ dev: prereqs
 		dpkg-dev \
 		git \
 		linux-headers-$(uname -r)
-	sudo apt install --yes podman
 	sudo apt install --yes \
 		python3-pip \
 		virtualenvwrapper
