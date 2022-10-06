@@ -1,3 +1,5 @@
+$(eval $(shell grep VERSION_CODENAME /etc/os-release))
+
 # --- WHOLES ---
 
 dotfiles: key
@@ -41,6 +43,15 @@ dev: prereqs
 	sudo apt install --yes \
 		python3-pip \
 		virtualenvwrapper
+
+docker: docker-repo
+	sudo apt update
+	sudo apt install --yes docker-ce docker-ce-cli containerd.io
+	sudo usermod -G docker -a $(shell whoami)
+
+docker-repo:
+	curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+	echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian $(VERSION_CODENAME) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
 extrepo:
 	sudo apt install --yes extrepo
