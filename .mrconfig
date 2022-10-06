@@ -12,7 +12,7 @@ checkout = git clone 'git@github.com:freedomofpress/securedrop-debian-packaging.
 checkout = git clone 'git@github.com:freedomofpress/securedrop-workstation-docs.git' 'securedrop-workstation-docs'
 
 [securedrop-dev-packages-lfs]
-checkout = git clone 'git@github.com:freedomofpress/securedrop-dev-packages-lfs.git' 'securedrop-dev-packages-lfs'
+checkout = git clone 'git@github.com:freedomofpress/securedrop-dev-packages-lfs.git' 'securedrop-dev-packages-lfs' && git lfs install
 
 [terraform-metal-securedrop-staging]
 checkout = git clone 'git@github.com:cfm/terraform-metal-securedrop-staging.git' 'terraform-metal-securedrop-staging'
