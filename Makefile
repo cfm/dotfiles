@@ -2,6 +2,8 @@ $(eval $(shell grep VERSION_CODENAME /etc/os-release))
 
 # --- WHOLES ---
 
+build: docker key prereqs
+
 dotfiles: key
 	git remote set-url origin git@github.com:cfm/dotfiles.git
 	git clone git@github.com:cfm/dotfiles.private.git
