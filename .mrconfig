@@ -25,3 +25,9 @@ checkout = git clone 'git@github.com:freedomofpress/securedrop-dev-docs.git' 'se
 
 [build-logs]
 checkout = git clone 'git@github.com:freedomofpress/build-logs.git' 'build-logs'
+
+[securedrop/securedrop-docs]
+checkout = git clone 'git@github.com:freedomofpress/securedrop-docs.git' 'securedrop-docs'
+
+[securedrop-debian-packages-lfs]
+checkout = git clone 'git@github.com:freedomofpress/securedrop-debian-packages-lfs.git' 'securedrop-debian-packages-lfs' && cd $MR_REPO && git lfs install
