@@ -7,6 +7,7 @@ endfunction
 
 " Restore defaults if available.
 unlet! skip_defaults_vim
+call SourceIfExists("/etc/vimrc")
 call SourceIfExists("$VIMRUNTIME/defaults.vim")
 
 set number
