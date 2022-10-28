@@ -35,3 +35,8 @@ private="$HOME/dotfiles.private/.bashrc"
 if [ -f "$private" ]; then
 	. $private
 fi
+
+cargo="$HOME/.cargo/env"
+if [ -f "$cargo" ]; then
+	. $cargo
+fi
