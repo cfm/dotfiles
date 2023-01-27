@@ -1,0 +1,16 @@
+// Place your key bindings in this file to override the defaultsauto[]
+[
+    {
+        "key": "ctrl+t c",
+        "command": "tlaplus.model.check.run"
+    },
+    {
+        "key": "ctrl+t e",
+        "command": "tlaplus.evaluateExpression"
+    },
+    {
+        "key": "alt+v",
+        "command": "markdown.showPreview",
+        "when": "!notebookEditorFocused && editorLangId == 'markdown'"
+    }
+]
