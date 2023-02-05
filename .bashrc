@@ -1,7 +1,12 @@
 # .bashrc
 
+# Check for macOS
+if [ "$(uname)" = "Darwin" ]; then
+	mac=1
+fi
+
 # Source global definitions
-if [ -f /etc/bashrc ]; then
+if [ "$0" = "bash" ] && [ -f /etc/bashrc ]; then
 	. /etc/bashrc
 fi
 
@@ -27,9 +32,13 @@ fi
 unset rc
 
 export EDITOR=vim
-export GPG_TTY="$(tty)"
-export SSH_AUTH_SOCK="/run/user/$UID/gnupg/S.gpg-agent.ssh"
-gpg-connect-agent updatestartuptty /bye > /dev/null
+if [ $mac ]; then
+	export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+	gpgconf --launch gpg-agent
+else
+	export SSH_AUTH_SOCK="/run/user/$UID/gnupg/S.gpg-agent.ssh"
+	gpg-connect-agent updatestartuptty /bye > /dev/null
+fi
 
 private="$HOME/dotfiles.private/.bashrc"
 if [ -f "$private" ]; then
