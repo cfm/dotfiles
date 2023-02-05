@@ -56,6 +56,7 @@ terraform-repo:  # adapted from https://www.terraform.io/downloads
 	sudo apt-get update
 
 prereqs: prereqs-sd
+ifdef VERSION_CODENAME
 	sudo apt-get update
 	sudo apt-get autoremove --yes
 	sudo apt-get install --yes \
@@ -63,8 +64,10 @@ prereqs: prereqs-sd
 		python3-venv libpython3-dev \
 		rsync \
 		scdaemon
+endif
 
 prereqs-sd:  # https://docs.securedrop.org/en/stable/development/setup_development.html#id1
+ifdef VERSION_CODENAME
 	sudo apt-get install --yes \
 		build-essential \
 		libssl-dev \
@@ -76,6 +79,7 @@ prereqs-sd:  # https://docs.securedrop.org/en/stable/development/setup_developme
 	sudo apt-get install --yes \
 		python3-pip \
 		virtualenvwrapper
+endif
 
 vscodium: vscodium-repo
 	sudo apt-get install --yes codium
