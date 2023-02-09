@@ -52,6 +52,8 @@ _extrepo:
 _key: _prereqs
 	gpg --recv-key 0x0F786C3435E961244B69B9EC07AD35D378D10BA0
 	chmod 700 ~/.gnupg
+_rust:
+	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 _terraform: _terraform-repo
 	sudo apt-get install --yes terraform
@@ -61,7 +63,7 @@ _terraform-repo:  # adapted from https://www.terraform.io/downloads
 	echo "deb [arch=amd64] https://apt.releases.hashicorp.com `lsb_release -cs` main" | sudo tee /etc/apt/sources.list.d/terraform.list
 	sudo apt-get update
 
-_prereqs: _prereqs-sd
+_prereqs: _prereqs-sd _rust
 ifdef VERSION_CODENAME
 	sudo apt-get update
 	sudo apt-get autoremove --yes
