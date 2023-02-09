@@ -25,6 +25,7 @@ sd-staging: _prereqs
 
 # --- PIECES ---
 
+# Things I need for interactive use.
 _dev: _prereqs
 	sudo apt-get install --yes \
 		jq \
@@ -63,6 +64,7 @@ _terraform-repo:  # adapted from https://www.terraform.io/downloads
 	echo "deb [arch=amd64] https://apt.releases.hashicorp.com `lsb_release -cs` main" | sudo tee /etc/apt/sources.list.d/terraform.list
 	sudo apt-get update
 
+# Things I need I need for both interactive and toolchain use.
 _prereqs: _prereqs-sd _rust
 ifdef VERSION_CODENAME
 	sudo apt-get update
@@ -74,7 +76,8 @@ ifdef VERSION_CODENAME
 		scdaemon
 endif
 
-_prereqs-sd:  # https://docs.securedrop.org/en/stable/development/setup_development.html#id1
+# https://docs.securedrop.org/en/stable/development/setup_development.html#id1
+_prereqs-sd:
 ifdef VERSION_CODENAME
 	sudo apt-get install --yes \
 		build-essential \
