@@ -93,7 +93,9 @@ ifdef VERSION_CODENAME
 endif
 
 _vscodium: _vscodium-repo
-	sudo apt-get install --yes codium
+	sudo apt-get install --yes \
+		codium \
+		default-jdk  # for TLA+
 
 _vscodium-repo: _extrepo
 	sudo extrepo enable vscodium
