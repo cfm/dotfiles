@@ -26,7 +26,7 @@ sd-staging: _prereqs
 # --- PIECES ---
 
 # Things I need for interactive use.
-_dev: _prereqs
+_dev: _prereqs _rust
 	sudo apt-get install --yes \
 		jq \
 		perl-doc \
@@ -65,7 +65,7 @@ _terraform-repo:  # adapted from https://www.terraform.io/downloads
 	sudo apt-get update
 
 # Things I need I need for both interactive and toolchain use.
-_prereqs: _prereqs-sd _rust
+_prereqs: _prereqs-sd
 ifdef VERSION_CODENAME
 	sudo apt-get update
 	sudo apt-get autoremove --yes
