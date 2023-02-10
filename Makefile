@@ -9,6 +9,7 @@ dev: sd-dev
 dotfiles: _key
 	git remote set-url origin git@github.com:cfm/dotfiles.git
 	test -d dotfiles.private || git clone git@github.com:cfm/dotfiles.private.git
+	ln -fs ${HOME}/dotfiles.private/.mrconfig .mrconfig
 
 key: _key
 
