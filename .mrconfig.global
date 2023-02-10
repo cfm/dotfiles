@@ -1,0 +1,4 @@
+[.]
+
+[dotfiles.private]
+skip = lazy
