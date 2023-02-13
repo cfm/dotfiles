@@ -32,12 +32,13 @@ fi
 unset rc
 
 export EDITOR=vim
+export GPG_TTY="$(tty)"
 if [ $mac ]; then
-	export GPG_PINENTRY_PROGRAM="/Applications/MacPorts/pinentry-mac.app/Contents/MacOS/pinentry-mac"
+	export PINENTRY_USER_DATA="/Applications/MacPorts/pinentry-mac.app/Contents/MacOS/pinentry-mac"
 	export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 	gpgconf --launch gpg-agent
 else
-	export GPG_PINENTRY_PROGRAM="/usr/bin/pinentry-gnome3"
+	export PINENTRY_USER_DATA="/usr/bin/pinentry-gnome3"
 	export SSH_AUTH_SOCK="/run/user/$UID/gnupg/S.gpg-agent.ssh"
 	gpg-connect-agent updatestartuptty /bye > /dev/null
 fi

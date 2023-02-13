@@ -1,0 +1,3 @@
+#!/bin/sh
+# Adapted from <https://a3nm.net/git/mybin/file/my-pinentry.html>.
+exec "$PINENTRY_USER_DATA" "$@"
