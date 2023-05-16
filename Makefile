@@ -1,3 +1,4 @@
+$(eval $(shell grep ID /etc/os-release))
 $(eval $(shell grep VERSION_CODENAME /etc/os-release))
 
 # --- WHOLES ---
@@ -67,7 +68,7 @@ _terraform-repo:  # adapted from https://www.terraform.io/downloads
 
 # Things I need I need for both interactive and toolchain use.
 _prereqs: _prereqs-sd
-ifdef VERSION_CODENAME
+ifeq ($(ID),debian)
 	sudo apt-get update
 	sudo apt-get autoremove --yes
 	sudo apt-get install --yes \
@@ -79,7 +80,7 @@ endif
 
 # https://docs.securedrop.org/en/stable/development/setup_development.html#id1
 _prereqs-sd:
-ifdef VERSION_CODENAME
+ifeq ($(ID),debian)
 	sudo apt-get install --yes \
 		build-essential \
 		libssl-dev \
