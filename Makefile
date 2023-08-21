@@ -68,7 +68,7 @@ _terraform-repo:  # adapted from https://www.terraform.io/downloads
 	sudo apt-get update
 
 # Things I need I need for both interactive and toolchain use.
-_prereqs: _prereqs-sd
+_prereqs: _prereqs-sd _prereqs-sdw
 ifeq ($(ID),debian)
 	sudo apt-get update
 	sudo apt-get autoremove --yes
@@ -93,6 +93,12 @@ ifeq ($(ID),debian)
 	sudo apt-get install --yes \
 		python3-pip \
 		virtualenvwrapper
+endif
+
+# https://github.com/freedomofpress/securedrop-workstation/tree/main/launcher#developer-environment
+_prereqs-sdw:
+ifeq ($(ID),debian)
+	sudo apt-get install --yes python3-pyqt5
 endif
 
 _vscodium: _vscodium-repo
