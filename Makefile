@@ -30,6 +30,7 @@ sd-staging: _prereqs
 # Things I need for interactive use.
 _dev: _prereqs _rust
 	sudo apt-get install --yes \
+		gist \
 		jq \
 		perl-doc \
 		python3-dev \
