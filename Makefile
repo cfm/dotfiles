@@ -20,6 +20,8 @@ sd-dev-dvm: dotfiles _dev _vscodium
 
 sd-build-dvm: dotfiles _docker _prereqs
 
+sd-kernel: _docker _gcloud
+
 sd-staging: _prereqs
 	sudo apt-get install --yes qubes-core-admin-client
 	sudo apt-get --yes autoremove
@@ -52,6 +54,15 @@ _docker-repo:
 _extrepo:
 	sudo apt-get install --yes extrepo
 	sudo apt-get update
+
+_gcloud: _gcloud-repo
+	sudo apt-get update
+	sudo apt-get install google-cloud-cli
+
+# https://cloud.google.com/sdk/docs/install#deb
+_gcloud-repo:
+	echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+	curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
 
 _key: _prereqs
 	gpg --recv-key 0x0F786C3435E961244B69B9EC07AD35D378D10BA0
