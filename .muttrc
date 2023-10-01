@@ -93,5 +93,10 @@ macro index 0 "<shell-escape>offlineimap && notmuch new<enter>"
 macro index,pager a ":set confirmappend=no delete=yes auto_tag=yes\n<save-message>=Archive\n<sync-mailbox>:set confirmappend=yes delete=ask-yes\n" "archive message(s)"
 
 ###############
+# Message display
+unhdr_order *
+hdr_order Message-ID: Date: From: Subject: To: Cc: Bcc:
+
+###############
 # Private overrides
 source ~/dotfiles.private/.muttrc
