@@ -52,3 +52,4 @@ cargo="$HOME/.cargo/env"
 if [ -f "$cargo" ]; then
 	. $cargo
 fi
+export CARGO_EMAIL=$EMAIL
