@@ -8,4 +8,7 @@
 [log]
 	showsignature = true
 [alias]
-	lg = log --stat
+	frd = log --reverse develop..HEAD
+	frm = log --reverse main..HEAD
+	ll = log --stat
+	whereami = log -1 --oneline --no-show-signature
