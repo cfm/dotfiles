@@ -36,10 +36,10 @@ sd-staging: _prereqs
 # Things I need for interactive use.
 _dev: _prereqs _rust
 	sudo apt-get install --yes \
-		gh \
 		jq \
 		perl-doc \
 		python3-dev \
+		python3-pip \
 		python3-tk \
 		sqlite3 \
 		vim \
@@ -67,6 +67,17 @@ _gcloud: _gcloud-repo
 _gcloud-repo:
 	echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
 	curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
+
+_github: _github-repo
+	sudo apt install --yes gh
+
+# https://github.com/cli/cli/blob/trunk/docs/install_linux.md
+_github-repo:
+	sudo mkdir -p -m 755 /etc/apt/keyrings
+	wget -qO- https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo tee /etc/apt/keyrings/githubcli-archive-keyring.gpg > /dev/null
+	sudo chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg
+	echo "deb [arch=$((dpkg --print-architecture)) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+	sudo apt update
 
 _key: _prereqs
 	gpg --recv-key 0x0F786C3435E961244B69B9EC07AD35D378D10BA0
