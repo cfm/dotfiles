@@ -5,7 +5,7 @@ $(eval $(shell grep VERSION_CODENAME /etc/os-release))
 
 # Someday I might split out generic versus SecureDrop-specific dependencies (as
 # I already do repositories).  But for now just alias:
-dev: sd-dev
+dev: sd
 
 dotfiles: _key
 	git remote set-url origin git@github.com:cfm/dotfiles.git
@@ -18,7 +18,7 @@ dotfiles: _key
 
 key: _key
 
-sd-dev: dotfiles _dev _docker _terraform _vscodium
+sd: dotfiles _dev _docker _github _terraform _vscodium
 
 sd-dev-dvm: dotfiles _dev _vscodium
 
