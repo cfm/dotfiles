@@ -1,5 +1,5 @@
-$(eval $(shell grep ID /etc/os-release))
-$(eval $(shell grep VERSION_CODENAME /etc/os-release))
+$(eval $(shell grep "^ID" /etc/os-release))
+$(eval $(shell grep "^VERSION_CODENAME" /etc/os-release))
 
 # --- WHOLES ---
 
