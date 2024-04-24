@@ -79,7 +79,7 @@ _github-repo:
 	echo "deb [arch=$((dpkg --print-architecture)) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
 	sudo apt update
 
-_key: _prereqs
+_key: _prereqs-key
 	gpg --recv-key 0x0F786C3435E961244B69B9EC07AD35D378D10BA0
 	chmod 700 ~/.gnupg
 _rust:
@@ -101,8 +101,13 @@ ifeq ($(ID),debian)
 	sudo apt-get install --yes \
 		git git-lfs mr perl-doc \
 		python3-venv libpython3-dev \
-		rsync \
-		scdaemon
+		rsync
+endif
+
+_prereqs-key:
+ifeq ($(ID),debian)
+	sudo apt-get update
+	sudo apt-get install --yes scdaemon
 endif
 
 # https://docs.securedrop.org/en/stable/development/setup_development.html#id1
