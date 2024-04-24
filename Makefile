@@ -99,7 +99,7 @@ ifeq ($(ID),debian)
 	sudo apt-get update
 	sudo apt-get autoremove --yes
 	sudo apt-get install --yes \
-		git git-lfs mr \
+		git git-lfs mr perl-doc \
 		python3-venv libpython3-dev \
 		rsync \
 		scdaemon
