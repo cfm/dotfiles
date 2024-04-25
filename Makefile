@@ -40,6 +40,7 @@ _dev: _prereqs _rust
 		perl-doc \
 		python3-dev \
 		python3-pip \
+		python3-poetry \
 		python3-tk \
 		sqlite3 \
 		vim \
