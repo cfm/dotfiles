@@ -1,5 +1,4 @@
 {
   "tlaplus.tlc.modelChecker.options": "-dump dot,actionable,colorize ${specName}.tla.dot",
-  "editor.formatOnSave": true,
   "window.zoomLevel": -1
 }
