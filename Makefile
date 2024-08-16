@@ -121,7 +121,8 @@ ifeq ($(ID),debian)
 		python3-dev \
 		dpkg-dev \
 		git \
-		linux-headers-$(uname -r)
+		linux-headers-$(uname -r) \
+		pkg-config
 	sudo apt-get install --yes \
 		python3-pip \
 		virtualenvwrapper
