@@ -32,7 +32,8 @@ fi
 unset rc
 
 export EDITOR=vim
-export GPG_TTY="$(tty)"
+export QUBES_GPG_DOMAIN=sys-usb  # Yubikey via qubes-gpg-client
+export GPG_TTY="$(tty)"          # otherwise
 if [ $mac ]; then
 	export PINENTRY_USER_DATA="/Applications/MacPorts/pinentry-mac.app/Contents/MacOS/pinentry-mac"
 	export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
