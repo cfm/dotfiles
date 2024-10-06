@@ -3,5 +3,5 @@ result="$(which qubes-gpg-client-wrapper)"
 if [ "$?" -eq 0 ]; then
 	exec qubes-gpg-client-wrapper $*
 else
-	exec gpg $*
+	exec /usr/bin/gpg $*  # NB. fails during bootstrapping
 fi
