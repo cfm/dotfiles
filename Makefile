@@ -1,4 +1,5 @@
 $(eval $(shell grep "^ID" /etc/os-release))
+$(eval $(shell grep "^VERSION_ID" /etc/os-release))
 $(eval $(shell grep "^VERSION_CODENAME" /etc/os-release))
 
 # --- WHOLES ---
@@ -56,6 +57,14 @@ _docker: _docker-repo
 _docker-repo:
 	curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
 	echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian $(VERSION_CODENAME) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+_dotnet: _dotnet-repo
+	sudo apt-get install --yes dotnet-sdk-9.0
+
+_dotnet-repo:
+	wget https://packages.microsoft.com/config/debian/$(VERSION_ID)/packages-microsoft-prod.deb -O /tmp/packages-microsoft-prod.deb
+	sudo dpkg -i /tmp/packages-microsoft-prod.deb
+	sudo apt-get update
 
 _extrepo:
 	sudo apt-get install --yes extrepo
@@ -135,7 +144,7 @@ ifeq ($(ID),debian)
 	sudo apt-get install --yes python3-pyqt5
 endif
 
-_vscodium: _vscodium-repo
+_vscodium: _dotnet _vscodium-repo
 	sudo apt-get install --yes \
 		codium \
 		default-jdk  # for TLA+
