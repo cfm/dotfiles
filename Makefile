@@ -35,7 +35,7 @@ sd-staging: _prereqs
 # --- PIECES ---
 
 # Things I need for interactive use.
-_dev: _prereqs _rust
+_dev: _prereqs _go _rust
 	sudo apt-get install --yes \
 		jq \
 		perl-doc \
@@ -48,6 +48,12 @@ _dev: _prereqs _rust
 		vinagre \
 		wget \
 		xvfb
+
+_backports:
+	grep "${VERSION_CODENAME}-backports" /etc/apt/sources.list || \
+		echo "deb http://deb.debian.org/debian ${VERSION_CODENAME}-backports main" | \
+		sudo tee -a /etc/apt/sources.list
+	sudo apt-get update
 
 _docker: _docker-repo
 	sudo apt-get update
@@ -89,6 +95,9 @@ _github-repo:
 	sudo chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg
 	echo "deb [arch=$(shell dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
 	sudo apt update
+
+_go: _backports
+	sudo apt install --yes -t ${VERSION_CODENAME}-backports golang
 
 _key: _prereqs-key
 	gpg --recv-key 0x0F786C3435E961244B69B9EC07AD35D378D10BA0
