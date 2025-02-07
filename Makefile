@@ -35,7 +35,7 @@ sd-staging: _prereqs
 # --- PIECES ---
 
 # Things I need for interactive use.
-_dev: _prereqs _go _rust
+_dev: _prereqs _go _gobra-prereqs _rust
 	sudo apt-get install --yes \
 		jq \
 		perl-doc \
@@ -124,6 +124,8 @@ ifeq ($(ID),debian)
 		rsync
 endif
 
+_prereqs-gobra: _sbt _z3
+
 _prereqs-key:
 ifeq ($(ID),debian)
 	sudo apt-get update
@@ -153,6 +155,15 @@ ifeq ($(ID),debian)
 	sudo apt-get install --yes python3-pyqt5
 endif
 
+_sbt: _sbt-repo
+	sudo apt-get install sbt
+
+_sbt-repo:
+	echo "deb https://repo.scala-sbt.org/scalasbt/debian all main" | sudo tee /etc/apt/sources.list.d/sbt.list
+	echo "deb https://repo.scala-sbt.org/scalasbt/debian /" | sudo tee /etc/apt/sources.list.d/sbt_old.list
+	curl -sL "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x2EE0EA64E40A89B84B2DF73499E82A75642AC823" | sudo apt-key add
+	sudo apt-get update
+
 _vscodium: _dotnet _vscodium-repo
 	sudo apt-get install --yes \
 		codium \
@@ -161,3 +172,6 @@ _vscodium: _dotnet _vscodium-repo
 _vscodium-repo: _extrepo
 	sudo extrepo enable vscodium
 	sudo apt-get update
+
+_z3:
+	sudo apt-get install --yes z3
