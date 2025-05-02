@@ -38,6 +38,8 @@ sd-staging: _prereqs
 _dev: _prereqs _go _gobra-prereqs _rust
 	sudo apt-get install --yes \
 		jq \
+		meld \
+		oathtool \
 		perl-doc \
 		python3-dev \
 		python3-pip \
@@ -47,6 +49,7 @@ _dev: _prereqs _go _gobra-prereqs _rust
 		vim \
 		vinagre \
 		wget \
+		xdotool \
 		xvfb
 
 _backports:
@@ -121,7 +124,8 @@ ifeq ($(ID),debian)
 	sudo apt-get install --yes \
 		git git-lfs mr perl-doc \
 		python3-venv libpython3-dev \
-		rsync
+		rsync \
+		wget
 endif
 
 _prereqs-gobra: _sbt _z3
