@@ -6,7 +6,7 @@ $(eval $(shell grep "^VERSION_CODENAME" /etc/os-release))
 
 # Someday I might split out generic versus SecureDrop-specific dependencies (as
 # I already do repositories).  But for now just alias:
-dev: sd
+dev: sd _tex
 
 dotfiles: _key
 	git remote set-url origin git@github.com:cfm/dotfiles.git
@@ -167,6 +167,11 @@ _sbt-repo:
 	echo "deb https://repo.scala-sbt.org/scalasbt/debian /" | sudo tee /etc/apt/sources.list.d/sbt_old.list
 	curl -sL "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x2EE0EA64E40A89B84B2DF73499E82A75642AC823" | sudo apt-key add
 	sudo apt-get update
+
+_tex:
+ifeq ($(ID),debian)
+	sudo apt-get install --yes texlive-full
+endif
 
 _vscodium: _dotnet _vscodium-repo
 	sudo apt-get install --yes \
