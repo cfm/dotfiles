@@ -35,7 +35,7 @@ sd-staging: _prereqs
 # --- PIECES ---
 
 # Things I need for interactive use.
-_dev: _prereqs _go _gobra-prereqs _rust
+_dev: _prereqs _go _gobra-prereqs _node _rust
 	sudo apt-get install --yes \
 		jq \
 		meld \
@@ -105,6 +105,14 @@ _go: _backports
 _key: _prereqs-key
 	gpg --recv-key 0x0F786C3435E961244B69B9EC07AD35D378D10BA0
 	chmod 700 ~/.gnupg
+
+_node: _node-repo
+	sudo apt update
+	sudo apt install --yes nodejs
+
+_node-repo:
+	curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
+
 _rust:
 	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
