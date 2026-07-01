@@ -1,6 +1,7 @@
 $(eval $(shell grep "^ID" /etc/os-release))
 $(eval $(shell grep "^VERSION_ID" /etc/os-release))
 $(eval $(shell grep "^VERSION_CODENAME" /etc/os-release))
+GPG=/usr/bin/gpg
 
 # --- WHOLES ---
 
@@ -35,7 +36,7 @@ sd-staging: _prereqs
 # --- PIECES ---
 
 # Things I need for interactive use.
-_dev: _prereqs _go _gobra-prereqs _node _rust
+_dev: _prereqs _go _node _pnpm _rust
 	sudo apt-get install --yes \
 		jq \
 		meld \
@@ -45,9 +46,9 @@ _dev: _prereqs _go _gobra-prereqs _node _rust
 		python3-pip \
 		python3-poetry \
 		python3-tk \
+		remmina \
 		sqlite3 \
 		vim \
-		vinagre \
 		wget \
 		xdotool \
 		xvfb
@@ -64,7 +65,7 @@ _docker: _docker-repo
 	sudo usermod -G docker -a $(shell whoami)
 
 _docker-repo:
-	curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+	curl -fsSL https://download.docker.com/linux/debian/gpg | sudo $(GPG) --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
 	echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian $(VERSION_CODENAME) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
 _dotnet: _dotnet-repo
@@ -86,7 +87,7 @@ _gcloud: _gcloud-repo
 # https://cloud.google.com/sdk/docs/install#deb
 _gcloud-repo:
 	echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
-	curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
+	curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo $(GPG) --dearmor -o /usr/share/keyrings/cloud.google.gpg
 
 _github: _github-repo
 	sudo apt install --yes gh
@@ -103,7 +104,7 @@ _go: _backports
 	sudo apt install --yes -t ${VERSION_CODENAME}-backports golang
 
 _key: _prereqs-key
-	gpg --recv-key 0x0F786C3435E961244B69B9EC07AD35D378D10BA0
+	$(GPG) --recv-key 0x0F786C3435E961244B69B9EC07AD35D378D10BA0
 	chmod 700 ~/.gnupg
 
 _node: _node-repo
@@ -111,7 +112,11 @@ _node: _node-repo
 	sudo apt install --yes nodejs
 
 _node-repo:
-	curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
+	curl -fsSL https://deb.nodesource.com/setup_24.x | sudo -E bash -
+
+_pnpm: _node
+	sudo npm install --global corepack@latest
+	corepack enable pnpm
 
 _rust:
 	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
@@ -120,8 +125,8 @@ _terraform: _terraform-repo
 	sudo apt-get install --yes terraform
 
 _terraform-repo:  # adapted from https://www.terraform.io/downloads
-	curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
-	echo "deb [arch=amd64] https://apt.releases.hashicorp.com `lsb_release -cs` main" | sudo tee /etc/apt/sources.list.d/terraform.list
+	curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo $(GPG) --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+	echo "deb [arch=amd64 signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com `lsb_release -cs` main" | sudo tee /etc/apt/sources.list.d/terraform.list
 	sudo apt-get update
 
 # Things I need I need for both interactive and toolchain use.
@@ -135,8 +140,6 @@ ifeq ($(ID),debian)
 		rsync \
 		wget
 endif
-
-_prereqs-gobra: _sbt _z3
 
 _prereqs-key:
 ifeq ($(ID),debian)
@@ -167,15 +170,6 @@ ifeq ($(ID),debian)
 	sudo apt-get install --yes python3-pyqt5
 endif
 
-_sbt: _sbt-repo
-	sudo apt-get install sbt
-
-_sbt-repo:
-	echo "deb https://repo.scala-sbt.org/scalasbt/debian all main" | sudo tee /etc/apt/sources.list.d/sbt.list
-	echo "deb https://repo.scala-sbt.org/scalasbt/debian /" | sudo tee /etc/apt/sources.list.d/sbt_old.list
-	curl -sL "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x2EE0EA64E40A89B84B2DF73499E82A75642AC823" | sudo apt-key add
-	sudo apt-get update
-
 _tex:
 ifeq ($(ID),debian)
 	sudo apt-get install --yes texlive-full
@@ -189,6 +183,3 @@ _vscodium: _dotnet _vscodium-repo
 _vscodium-repo: _extrepo
 	sudo extrepo enable vscodium
 	sudo apt-get update
-
-_z3:
-	sudo apt-get install --yes z3
